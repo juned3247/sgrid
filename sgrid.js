@@ -64,9 +64,13 @@ class SGrid {
             }
             case 'mouseup': {
                 if (this.selectListener) {
+                    let upXY = this.calculateXY(event.target);
                     this.selectListener({
                         from: this.mouseDownXY,
-                        to: this.calculateXY(event.target)
+                        to: {
+                            x:this.opts.selection == 'colonly'? this.mouseDownXY.x : upXY.x,
+                            y:this.opts.selection == 'rowonly'? this.mouseDownXY.y : upXY.y
+                        }
                     });
                 }
                 this.mouseDownXY = undefined;
